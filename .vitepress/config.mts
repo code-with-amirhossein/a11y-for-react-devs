@@ -4,6 +4,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "A11Y For React Devs",
   description: "A VitePress Site",
+  base: "/a11y-for-react-devs/",
   themeConfig: {
     sidebar: [
       {
