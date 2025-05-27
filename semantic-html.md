@@ -70,12 +70,4 @@ function ListItem({ item }) {
 
 ## Headings Hierarchy
 
-...
-
-## Landmark Elements
-
-Use landmark elements and roles, such as `<main>` and `<aside>`, to demarcate page regions as assistive technology allow the user to quickly navigate to these sections.
-
-Read more about the use of these elements to enhance accessibility here:
-
-- [Accessible Landmarks](https://www.scottohara.me/blog/2018/03/03/landmarks.html)
+Semantic structure is created with `<h1>`-`<h6>` headings, landmarks such as `<main>`, `<nav>`, `<footer>`, `<section>` (with unique labels), content markup including `<ul>` and `<ol>` lists, and more. These are incredibly important for people who rely on AT to understand the structure of a page.
