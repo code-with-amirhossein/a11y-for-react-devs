@@ -1,6 +1,7 @@
 import { registerAll } from "@tapsioss/web-components";
 registerAll();
 
+// if (typeof window !== "undefined")
 class VisibilityWidget extends HTMLElement {
   private isToggled: boolean;
   constructor() {

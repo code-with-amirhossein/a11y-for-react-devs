@@ -1,5 +1,7 @@
 <script setup>
-   import './components/visibility-widget.ts'
+if (typeof window !== 'undefined') {
+    import('./components/visibility-widget.ts')
+}
  
 </script>
 
