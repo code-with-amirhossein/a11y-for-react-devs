@@ -62,7 +62,7 @@ The idea is simple enough: provide a link at the top of the page that, when acti
 ### Landmark Elements
 
 Check [Semantic HTML: Landmark Elements](/semantic-html#landmark-elements)
-
+<!-- 
 ## Programmatically managing focus
 
 Our React applications continuously modify the HTML DOM during runtime, sometimes leading to keyboard focus being lost or set to an unexpected element. In order to repair this, we need to programmatically nudge the keyboard focus in the right direction. For example, by resetting keyboard focus to a button that opened a modal window after that modal window is closed.
@@ -129,4 +129,4 @@ A great focus management example is the [react-aria-modal](https://github.com/d
 
 ::: warning
 While this is a very important accessibility feature, it is also a technique that should be used judiciously. Use it to repair the keyboard focus flow when it is disturbed, not to try and anticipate how users want to use applications.
-:::
+::: -->

@@ -9,3 +9,7 @@
   --vp-c-text: #ffffff;
   --vp-c-bg-alt: #121212;
 }
+
+iframe {
+  width: 100%;
+}

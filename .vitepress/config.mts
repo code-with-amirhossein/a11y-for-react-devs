@@ -9,9 +9,12 @@ export default defineConfig({
     sidebar: [
       {
         items: [
+          { text: "Introduction", link: "/intro" },
           { text: "WAI-ARIA", link: "/wai-aria" },
           { text: "Semantic HTML", link: "/semantic-html" },
           { text: "Accessible Form", link: "/accessible-forms" },
+          { text: "Visibility Methods", link: "/visibility-methods" },
+          // { text: "Accessible Multimedia", link: "/multimedia" },
           { text: "Focus Control", link: "/focus-control" },
           {
             text: "Mouse and Pointer Events",

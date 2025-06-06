@@ -2,86 +2,218 @@
 outline: "deep"
 ---
 
+<script setup>
+
+const formIframeSrcDoc = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessible Form Example</title>
+</head>
+<body>
+  <h1>Form for Testing Accessibility</h1>
+  <main>
+    <form class="form js-form" id="f" action="#">
+      <fieldset class="form__data">
+        <legend>Subscribe now</legend>
+        <div class="form__name">
+          <label
+            for="firstname"
+            data-validation="We need your first name to address you correctly"
+          >
+            <span class="form__field-name">First name</span>
+            <span aria-hidden="true" class="form__required">(required)</span>
+          </label>
+          <input
+            aria-describedby="firstname-validation"
+            required
+            id="firstname"
+            name="firstname"
+            type="text"
+            autocomplete="given-name"
+          />
+          <small id="firstname-validation" class="form__validation"></small>
+        </div>
+        <div class="form__name">
+          <label
+            for="lastname"
+            data-validation="We need your last name to address you correctly"
+          >
+            <span class="form__field-name">Last name</span>
+            <span aria-hidden="true" class="form__required">(required)</span>
+          </label>
+          <input
+            aria-describedby="lastname-validation"
+            required
+            id="lastname"
+            name="lastname"
+            type="text"
+            autocomplete="family-name"
+          />
+          <small id="lastname-validation" class="form__validation"></small>
+        </div>
+        <div class="form__email">
+          <label
+            for="email"
+            data-validation="We need your email address to be able to send you the newsletter"
+          >
+            <span class="form__field-name">Email address</span>
+            <span aria-hidden="true" class="form__required">(required)</span>
+          </label>
+          <input
+            aria-describedby="email-validation"
+            required
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+          />
+          <small id="email-validation" class="form__validation"></small>
+        </div>
+      </fieldset>
+
+      <button class="button button--red" type="submit">Subscribe</button>
+    </form>
+  </main>
+  <script>document.getElementById("f").addEventListener("submit", (e) => {e.preventDefault();console.log("submitted!");});<\/script>
+</body>
+</html>
+`
+</script>
+
 # WAI-ARIA
 
 The [Web Accessibility Initiative - Accessible Rich Internet Applications](https://www.w3.org/WAI/intro/aria) (WAI-ARIA) document contains techniques for building fully accessible JavaScript widgets and web applications. It defines a set of attributes to help make web content and web applications more accessible to people with disabilities.
 
-Note that all `aria-*` HTML attributes are fully supported in JSX. Whereas most DOM properties and attributes in React are camelCased, these attributes should be hyphen-cased (also known as kebab-case, lisp-case, etc.) as they are in plain HTML:
 
-```tsx
-<input
-  type="text"
-  aria-label={labelText} // [!code highlight]
-  aria-required="true" // [!code highlight]
-  onChange={onchangeHandler}
-  value={inputValue}
-  name="name"
-/>
-```
+## `aria-label`
 
-## How should we use these ARIA attributes?
-
-While ARIA attributes are powerful tools for enhancing accessibility, it's important to use them correctly. The primary goal is to provide semantic information to assistive technologies, like screen readers, where native HTML might not be sufficient.
-
-### Prioritize Native HTML Elements
-
-Before resorting to ARIA, always try to use native HTML elements for their built-in semantics and accessibility features. For example, the `<label>` element is the best and preferred way to label form controls:
+`aria-label` overrides an element's name, replacing it with text that you specify. For instance, consider the following button:
 
 ```html
-<label for="nameInput">Name:</label>
-<input type="text" id="nameInput" name="name" />
+<button aria-label="Close">
+	×
+</button>
+```
+By default, the button's name would have been `"×"`. However, `×` is meant to be a multiplication symbol, and screenreaders will announce it as such. That means that, while this might be a visually appealing close button, it won't be super useful or descriptive for disabled users who rely on assistive technology. To remedy this, we put `aria-label="Close"` on the button. The button's name is now "Close," which is much more descriptive and intuitive.
+
+## `aria-labelledby`
+
+`aria-labelledby` also overrides an element's name, replacing it with the contents of another element. `aria-labelledby` is set to the id of another element whose contents make up a useful name. 
+
+::: info
+
+You can think of it as kind of like a generalized version of the `<label>` element's `for` attribute (or `htmlFor` in React). 
+
+
+```tsx
+<label htmlFor="age">Age</label>
+<input id="age" />
 ```
 
-Linking a `label` to an input using the `for` attribute (pointing to the input's `id`) is the most robust way to ensure the input is properly labeled.
-
-### When to Use ARIA Attributes
-
-ARIA attributes should be used when native HTML doesn't provide the necessary semantics or when you are building custom widgets that don't have native HTML equivalents. Here are some common ARIA attributes and how to use them, inspired by insights from accessibility specialists:
-
-1.  **`aria-label`**:
-
-    - **Use Case**: Provides an accessible name for an element when there is no visible text label on the screen. This is common for icon buttons (e.g., a search button with only a magnifying glass icon) or other interactive elements where a visible label would be redundant or clunky.
-    - **Example (from above)**: `aria-label={labelText}` ensures that even if there's no visible label text directly associated with the input, a screen reader will announce the value of `labelText`.
-    - **Important**: The `aria-label` string will be announced by screen readers along with the element's role (e.g., "Search, button" or "Name, edit text").
-
-2.  **`aria-labelledby`**:
-
-    - **Use Case**: Provides an accessible name by referencing the `id`(s) of other elements on the page that serve as the label. This is useful when the labeling text is already present visually but isn't directly associated with the input using a `<label for="...">` tag, or when a label is composed of multiple text elements.
-    - **Example**:
-      ```tsx
-      <div id="billing">Billing Address</div>
-      // ... other elements ...
-      <label id="streetLabel">Street:</label>
-      <input type="text" aria-labelledby="billing streetLabel" />
-      ```
-      In this case, a screen reader might announce "Billing Address Street: edit text". The referenced IDs are space-separated.
-
-3.  **`aria-describedby`**:
-
-    - **Use Case**: Provides additional, non-essential information or a description for an element. This description is typically announced _after_ the element's label and role. It's useful for instructions, format requirements, or error messages.
-    - **Example**:
-      ```tsx
-      <label for="password">Password:</label>
-      <input type="password" id="password" aria-describedby="passwordHint" />
-      <p id="passwordHint">Must be at least 8 characters long.</p>
-      ```
-      A screen reader would first announce the label ("Password, edit text, protected") and then the description ("Must be at least 8 characters long.").
-    - **Crucial Note**: `aria-describedby` provides a _description_, not a label. You still need to ensure the element has a proper accessible name via `<label>`, `aria-label`, or `aria-labelledby`.
-
-4.  **`aria-required`**:
-    - **Use Case**: Indicates to assistive technologies that user input is required on an element before a form can be submitted.
-    - **Example (from above)**: `aria-required="true"` will inform a screen reader user that the input field must be filled. This often complements visual indicators like asterisks.
-
-### What to Avoid
-
-- **`aria-details`**: While it exists to point to more detailed rich content, its screen reader support is currently poor, so it should generally not be relied upon for essential labeling or descriptive information.
-- **`aria-description`**: This attribute is not currently part of the official ARIA specification and lacks browser and assistive technology support, making it unusable.
-
-### General Principles
-
-- **Don't override native semantics unless necessary**: If an HTML element already has the correct role, state, or property, you don't need to add ARIA to reiterate it.
-- **Test with assistive technologies**: The best way to ensure your ARIA attributes are working correctly is to test your interface using screen readers (e.g., NVDA, JAWS, VoiceOver) and other accessibility tools.
-
-By understanding and correctly applying these ARIA attributes, along with prioritizing native HTML, you can significantly improve the accessibility of your web applications for all users.
+:::
 
 
+This is useful when you already have another element that serves as a visual label for something. By linking the two elements with `aria-labelledby` like this, we ensure that we only have to update content in one place and our accessible name updates automatically.
+
+One handy use case for aria-labelledby is labelling sections. When sections are labelled, screenreader users can skim through them like a table of contents, using them to skip to sections of the page they care about. Usually, these sections already have a heading element that can serve as a nice, convenient label!
+
+
+```tsx
+<section aria-labelledby="intro-heading">
+	<h2 id="intro-heading">
+		Introduction
+	</h2>
+	<p> ... </p>
+</section>
+```
+
+`aria-labelledby` shares many of the same caveats as `aria-label` such as compatible elements and user expectations. Additionally, `aria-labelledby` will supercede `aria-label` if both attributes are provided.
+
+## `aria-describedby`
+
+`aria-describedby` sets an element's description to the contents of another element. Like `aria-labelledby`, `aria-describedby` takes an id. Descriptions are helpful for providing longer-form, supplemental information about an interface control that should probably be exposed along with the rest of the element, but which wouldn't make sense as part of the element's name.
+
+We could, for instance, use `aria-describedby` to link an input with an element that provides further details about the input's expected format:
+
+```tsx
+<form>
+	<label htmlFor="username">Username</label>
+	<input id="username" type="text" aria-describedby="format" />
+	<p id="format">
+		Username may contain alphanumeric characters.
+	</p>
+</form>
+```
+
+The above input will have the name "Username" (given to it by its `<label>`) and the description "Username may contain alphanumeric characters." That means that while assistive technologies will call the input field "Username," when the user actually navigates to the field, they'll be informed of both its name and the expected format. Nifty.
+
+Because descriptions are supplemental, they may not be exposed to the user in every navigation mode. This is a great thing, because it reduces clutter! For instance, many screenreader users will skim through a whole form to find out which fields are available before filling it out, but they wouldn't need your descriptions until they start filling out each field. However, this does mean you should go in with the assumption that your provided description might not be guaranteed.
+
+::: details Providing Multiple IDs
+
+Should you need, both `aria-labelledby` and `aria-describedby` support passing multiple IDs. When assembling the element's name or description from multiple elements, the browser will concatenate each element's contents into one big string.
+
+Expanding on our username field example from earlier...
+
+
+```tsx
+<form>
+	<label for="username">Username</label>
+	<input id="username" type="text" aria-describedby="length format" />
+	<p id="length">
+		Username must be 6 to 15 characters.
+	</p>
+	<p id="format">
+		Username may contain alphanumeric characters.
+	</p>
+</form>
+```
+
+Our input's full description now reads **"Username must be 6 to 15 characters. Username may contain alphanumeric characters."**.
+
+
+:::
+
+## Hidden Labels and Descriptions 
+
+`aria-labelledby` and `aria-describedby` interact with a few other attributes—namely, hidden or `aria-hidden—in` an interesting way. In an ideal, 100% compatible world, when you set hidden or `aria-hidden`="true" on an element, that element won't be exposed to assistive technology so, for instance, screenreaders won't announce it. But what happens if you use a hidden element's id in another element's `aria-labelledby` or `aria-describedby`?
+
+What happens is kind of cool—the hidden element stays hidden, but its contents populate the other element's name or description anyways! You might not use this with `aria-labelledby` because using `aria-label` is probably easier in these cases. Where this comes in handy, though, is with descriptions.
+
+::: danger Don't Use `aria-description`!
+
+Currently, there isn't an `aria-description` attribute yet, though this attribute is on its way. Until it arrives and is widely supported by browsers and assistive technology alike, however, the only way to set an element's description is to introduce another DOM node to the page using `aria-describedby`. By default, this means that you have a new node that assistive technology could expose independently of the labelled/described element. In other words, you could be introducing potentially confusing clutter. We could place an `aria-hidden` on our description to minimize that misleading clutter.
+
+:::
+
+Here's an example!
+
+```tsx
+<table>
+	<thead>
+		<tr>
+			<th role="columnheader" scope="col" aria-sort="none">
+				<button aria-describedby="sort-description">
+					<svg><!-- some sort icon --></svg>
+					Name
+				</button>
+			</th>
+			<th> ... </th>
+		</tr>
+	</thead>
+	<tbody>
+		...
+	</tbody>
+</table>
+
+<p id="sort-description" hidden>
+	Sort this table alphabetically by name.
+</p>
+```
+
+In this example, we have a table whose column headers have buttons that will sort the table. That sorting behavior is made evident for sighted users with some recognizable sort icon, but blind users wouldn't get any cues to the buttons' functionality. To compensate, we give the button a description using aria-describedby, pointing to a `<p>` tag outside of the table. We wouldn't want users to navigate to the `<p>` on its own, however, so we apply hidden to it. Now our sort button has a description of "Sort this table alphabetically by name." without any of the ensuing clutter! 🙌🏻
+
+<iframe :srcdoc="formIframeSrcDoc"></iframe>
