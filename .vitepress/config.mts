@@ -23,6 +23,7 @@ export default defineConfig({
           { text: "Complex Widgets", link: "/complex-widgets" },
           { text: "Development Checklists", link: "/dev-checklists" },
           { text: "Tools", link: "/tools" },
+          { text: "References", link: "/references" },
         ],
       },
     ],
