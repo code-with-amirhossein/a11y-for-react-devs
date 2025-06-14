@@ -16,13 +16,14 @@ export default defineConfig({
           { text: "Visibility Methods", link: "/visibility-methods" },
           // { text: "Accessible Multimedia", link: "/multimedia" },
           { text: "Focus Control", link: "/focus-control" },
-          {
-            text: "Mouse and Pointer Events",
-            link: "/mouse-and-pointer-events",
-          },
+          // {
+          //   text: "Mouse and Pointer Events",
+          //   link: "/mouse-and-pointer-events",
+          // },
           { text: "Complex Widgets", link: "/complex-widgets" },
           { text: "Development Checklists", link: "/dev-checklists" },
           { text: "Tools", link: "/tools" },
+          { text: "Exercise", link: "/exercise" },
           { text: "References", link: "/references" },
         ],
       },

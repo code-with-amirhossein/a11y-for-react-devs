@@ -6,6 +6,9 @@ hero:
   name: "Accessibility"
   text: "for React Developers"
   tagline: 🚧  Work in Progress
+  image: 
+    src: ./assets/a11y.svg
+    alt: accessibility icon
   actions:
     - theme: brand
       text: Get Started!
@@ -13,6 +16,22 @@ hero:
 ---
 
 <style>
+
+.VPImage {
+  color: var(--vp-c-brand-1);
+  animation: a11y-icon 1s;
+  
+}
+
+@keyframes a11y-icon {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 #author {
   display: flex;
   align-items: center;

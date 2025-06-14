@@ -2,87 +2,6 @@
 outline: "deep"
 ---
 
-<script setup>
-
-const formIframeSrcDoc = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accessible Form Example</title>
-</head>
-<body>
-  <h1>Form for Testing Accessibility</h1>
-  <main>
-    <form class="form js-form" id="f" action="#">
-      <fieldset class="form__data">
-        <legend>Subscribe now</legend>
-        <div class="form__name">
-          <label
-            for="firstname"
-            data-validation="We need your first name to address you correctly"
-          >
-            <span class="form__field-name">First name</span>
-            <span aria-hidden="true" class="form__required">(required)</span>
-          </label>
-          <input
-            aria-describedby="firstname-validation"
-            required
-            id="firstname"
-            name="firstname"
-            type="text"
-            autocomplete="given-name"
-          />
-          <small id="firstname-validation" class="form__validation"></small>
-        </div>
-        <div class="form__name">
-          <label
-            for="lastname"
-            data-validation="We need your last name to address you correctly"
-          >
-            <span class="form__field-name">Last name</span>
-            <span aria-hidden="true" class="form__required">(required)</span>
-          </label>
-          <input
-            aria-describedby="lastname-validation"
-            required
-            id="lastname"
-            name="lastname"
-            type="text"
-            autocomplete="family-name"
-          />
-          <small id="lastname-validation" class="form__validation"></small>
-        </div>
-        <div class="form__email">
-          <label
-            for="email"
-            data-validation="We need your email address to be able to send you the newsletter"
-          >
-            <span class="form__field-name">Email address</span>
-            <span aria-hidden="true" class="form__required">(required)</span>
-          </label>
-          <input
-            aria-describedby="email-validation"
-            required
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-          />
-          <small id="email-validation" class="form__validation"></small>
-        </div>
-      </fieldset>
-
-      <button class="button button--red" type="submit">Subscribe</button>
-    </form>
-  </main>
-  <script>document.getElementById("f").addEventListener("submit", (e) => {e.preventDefault();console.log("submitted!");});<\/script>
-</body>
-</html>
-`
-</script>
-
 # WAI-ARIA
 
 The [Web Accessibility Initiative - Accessible Rich Internet Applications](https://www.w3.org/WAI/intro/aria) (WAI-ARIA) document contains techniques for building fully accessible JavaScript widgets and web applications. It defines a set of attributes to help make web content and web applications more accessible to people with disabilities.
@@ -216,4 +135,3 @@ Here's an example!
 
 In this example, we have a table whose column headers have buttons that will sort the table. That sorting behavior is made evident for sighted users with some recognizable sort icon, but blind users wouldn't get any cues to the buttons' functionality. To compensate, we give the button a description using aria-describedby, pointing to a `<p>` tag outside of the table. We wouldn't want users to navigate to the `<p>` on its own, however, so we apply hidden to it. Now our sort button has a description of "Sort this table alphabetically by name." without any of the ensuing clutter! 🙌🏻
 
-<iframe :srcdoc="formIframeSrcDoc"></iframe>

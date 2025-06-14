@@ -13,13 +13,15 @@ Ensure that your web application can be fully operated with the keyboard only:
 
 - [WebAIM talks about keyboard accessibility](https://webaim.org/techniques/keyboard/)
 
-## Keyboard focus and focus outline
+## Keyboard focus and focus outline (focus ring)
 
 Keyboard focus refers to the current element in the DOM that is selected to accept input from the keyboard. We see it everywhere as a focus outline similar to that shown in the following image:
 
 [![Blue keyboard focus outline around a selected link.](https://legacy.reactjs.org/static/dec0e6bcc1f882baf76ebc860d4f04e5/4fcfe/keyboard-focus.png)](https://legacy.reactjs.org/static/dec0e6bcc1f882baf76ebc860d4f04e5/4fcfe/keyboard-focus.png)
 
 Only ever use CSS that removes this outline, for example by setting `outline: 0`, if you are replacing it with another focus outline implementation.
+
+Here are some examples of custom focus rings in [Tapsi design system](https://github.com/Tap30/web-components):
 
 <section aria-hidden="true" style="background: white; border-radius: 8px; padding: 12px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px;">
 

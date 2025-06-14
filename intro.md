@@ -5,19 +5,13 @@ outline: 'deep'
 
 # What is accessibility?
 
+<svg style="width: 10rem; margin:  2rem auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>human</title><path d="M21,9H15V22H13V16H11V22H9V9H3V7H21M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6C10.89,6 10,5.1 10,4C10,2.89 10.89,2 12,2Z" fill="var(--vp-c-brand-1)" /></svg>
+
 Accessibility is the practice of making your websites usable by as many people as possible. We traditionally think of this as being about people with disabilities, but the practice of making sites accessible also benefits other groups such as those using mobile devices, or those with slow network connections.
 
 You might also think of accessibility as treating everyone the same, and giving them equal opportunities, no matter what their ability or circumstances. Just as it is wrong to exclude someone from a physical building because they are in a wheelchair (modern public buildings generally have wheelchair ramps or elevators), it is also not right to exclude someone from a website because they have a visual impairment. We are all different, but we are all human, and therefore have the same human rights.
 
 Accessibility is the right thing to do. Providing accessible sites is part of the law in some countries, which can open up some significant markets that otherwise would not be able to use your services or buy your products.
-
-There are 3 levels of disabilities:
-- permanent disablilties
-<!-- People who are deaf or hard of hearing, People who are blind or low vision using screen reader. People with auditory processing difficulties. -->
-- temporary disabilities
- <!-- Have you ever go to the optometrist and they dilate your eyes and everythin is very washed out. You have hard time seeing until the medication wears off, that's a temporary type of disability. -->
-- situational disabilities
-<!--youre on the bus and want to watch a video-->
 
 ## What kinds of disability are we looking at?
 

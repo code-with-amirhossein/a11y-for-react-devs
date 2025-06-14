@@ -17,7 +17,14 @@ outline: "deep"
 
 # Development Checklists
 
-There are a number of tools we can use to assist in the creation of accessible web applications.
+![Image of the spider-man with triggered spider-sense](./assets/spider-sense.jpg)
+
+
+There are a number of tools we can use to assist in the creation of accessible web applications. 
+
+Here are some common issues that should make your spidey senses go off. My goal is for you to be able to identify these in code reviews and demos.
+
+We want to bring kindness to these situations and not judge people. We also need to identify accessibility issues (ideally) before they ship:
 
 ## Keyboard Navigation
 
@@ -73,7 +80,8 @@ Non-modal dialogs don’t have all of the same background requirements. But the 
 <tapsi-button @click="openModal" variant="brand" id="open-modal-btn">Open a sample modal</tapsi-button>
 <tapsi-modal style="z-index: 999" id="sample-modal" heading="a sample modal" description="As you can see. the focus is now on the first focusable element inside the modal.">
   <tapsi-button-group slot="action-bar">
-    <tapsi-button @click="closeModal">Got it</tapsi-button>
+    <tapsi-button @click="closeModal">button 1</tapsi-button>
+    <tapsi-button @click="closeModal">button 2</tapsi-button>
   </tapsi-button-group>
 </tapsi-modal>
 
@@ -133,7 +141,7 @@ const MyComponent = () => {
   }
 
   const handleKeyDown = (e: KeyboardEvent) => { // [!code focus]
-    if (event.code === 'Space' || event.code === 'Enter') { // [!code focus]
+    if (e.code === 'Space' || e.code === 'Enter') { // [!code focus]
       fn(); // [!code focus]
     } // [!code focus]
   } // [!code focus]
