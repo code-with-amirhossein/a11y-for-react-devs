@@ -7,7 +7,7 @@ hero:
   text: "for React Developers"
   tagline: Tapsi Front-end Chapter Knowledge Sharing
   image: 
-    src: ./assets/a11y.svg
+    src: /a11y.svg
     alt: accessibility icon
   actions:
     - theme: brand
