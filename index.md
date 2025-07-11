@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Accessibility"
   text: "for React Developers"
-  tagline: 🚧  Work in Progress
+  tagline: Tapsi Front-end Chapter Knowledge Sharing
   image: 
     src: ./assets/a11y.svg
     alt: accessibility icon

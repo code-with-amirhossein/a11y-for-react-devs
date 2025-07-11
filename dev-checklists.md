@@ -17,14 +17,17 @@ outline: "deep"
 
 # Development Checklists
 
-![Image of the spider-man with triggered spider-sense](./assets/spider-sense.jpg)
+<!-- ![Image of the spider-man with triggered spider-sense](./assets/spider-sense.jpg) -->
 
-
-There are a number of tools we can use to assist in the creation of accessible web applications. 
+There are a number of tools we can use to assist in the creation of accessible web applications.
 
 Here are some common issues that should make your spidey senses go off. My goal is for you to be able to identify these in code reviews and demos.
 
 We want to bring kindness to these situations and not judge people. We also need to identify accessibility issues (ideally) before they ship:
+
+## Use Semantic Structure
+
+Semantic structure is created with `<h1>`-`<h6>` headings, landmarks such as `<main>`, `<nav>`, `<footer>`, `<section>` (with unique labels), content markup including `<ul>` and `<ol>` lists, and more. These are incredibly important for people who rely on AT to understand the structure of a page.
 
 ## Keyboard Navigation
 
@@ -35,36 +38,86 @@ By far the easiest and also one of the most important checks is to test if your 
 3. Using `Enter` to activate elements.
 4. Where required, using your keyboard arrow keys to interact with some elements, such as menus and dropdowns.
 
-::: info
+::: warning
 
-Note that not everything has to be interactive for screen readers (e.g. headings)!
+Users should know which element is currently focused. Do not remove default styles of the focused elements. If you want to change the style of the focus ring, replace the default one with your own outline.
+
+Here are some examples of custom focus rings in [Tapsi design system](https://github.com/Tap30/web-components):
+
+<section aria-hidden="true" style="background: white; border-radius: 8px; padding: 12px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px;">
+
+<tapsi-button variant="brand">عنوان دکمه</tapsi-button>
+<tapsi-rate-slider label="rate-slider"></tapsi-rate-slider>
+<tapsi-radio label="radio"></tapsi-radio>
+<tapsi-switch label="switch"></tapsi-switch>
+<tapsi-checkbox label="checkbox"></tapsi-checkbox>
+
+</section>
 
 :::
 
-## Increase text size to 200%!
+## Be aware of nested focuses
 
-Is the content still readable? Does increasing the text size cause content to overlap?
+Imagine we want to create a linked button:
 
-## Straw Testing
+```html
+<a href="#">
+  <tapsi-button variant="brand">nevigate somewhere</tapsi-button>
+</a>
+```
 
-Proximity issues can arise when interface elements are designed far apart from one another. This mostly affects people with **low-vision** who rely on zoom software.
+<a href="#">
+  <tapsi-button variant="brand">nevigate somewhere</tapsi-button>
+</a>
 
-What happens when someone uses zoom software is that they only see a small fraction of the screen at once. Usually, the zoomed portion of the screen follows the current position of the mouse pointer or keyboard cursor.
+As you see both link and button are focusable, but we want the whole thing be focusable once.
 
-As a result of someone only being able to see a small section at a time, oftentimes when attempting to complete a task, content is difficult to find or may be missed entirely.
+We have 2 options:
 
-How do we test to ensure there are minimal to no proximity issues with our design? One relatively simple and effective method is to perform what's called, "the straw test."
+1. make the button unfocusable.
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Poor Proximity" src="//codepen.io/svinkle/embed/wXNMZr/?height=265&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/svinkle/pen/wXNMZr/">Poor Proximity</a> by Scott Vinkle
-  (<a href="https://codepen.io/svinkle">@svinkle</a>) on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+```html
+<a href="#">
+  <tapsi-button tabindex="-1" variant="brand">nevigate somewhere</tapsi-button>
+</a>
+```
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Better Proximity" src="//codepen.io/svinkle/embed/LrqNPV/?height=265&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/svinkle/pen/LrqNPV/">Better Proximity</a> by Scott Vinkle
-  (<a href="https://codepen.io/svinkle">@svinkle</a>) on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<a href="#">
+<tapsi-button tabindex="-1" variant="brand">nevigate somewhere</tapsi-button>
+</a>
 
+1. Use only the link and style it like a button
+
+```html
+<a href="#" class="button-like-link">nevigate somewhere</a>
+<!-- If you are using `@tapsioss/web-components` or `@tapsioss/react-components` package, you can easily pass href to the button componets and use them as links. -->
+```
+
+<tapsi-button href="#" variant="brand">nevigate somewhere</tapsi-button>
+
+## Use Skip Links
+
+On most pages, keyboard and screen reader users must navigate a long list of navigation links and other elements before ever arriving at the main content. This can be particularly difficult for users with some forms of motor disabilities. Consider users with no or limited arm movement who navigate a web page by tapping their heads on a switch or that use a stick in their mouth to press keyboard keys. Requiring users to perform any action numerous times before reaching the main content poses an accessibility barrier.
+
+Of course, sighted people who use their mouse do not have any trouble with web pages like this. They can almost immediately scan over the page and identify where the main content is. Skip navigation links are useful to give screen reader and keyboard users the same capability of navigating directly to the main content.
+
+The idea is simple enough: provide a link at the top of the page that, when activated, jumps the user to the beginning of the main content area.
+
+```html
+<body>
+  <a href="#main">Skip to main content</a>
+  <nav role="navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+  </nav>
+  <main id="main">
+    <!-- page specific content -->
+  </main>
+</body>
+```
 
 ## Modals
 
@@ -85,8 +138,7 @@ Non-modal dialogs don’t have all of the same background requirements. But the 
   </tapsi-button-group>
 </tapsi-modal>
 
-
-## Don't be a `div` button creator!
+## Don't be a `div` button creator
 
 It’s real easy to add a click event to a `div`. Too easy, in fact. And it happens all the time! the problem is, `div`s are not interactive elements so you have to backfill quite a few things to make them accessible. All the while, you could have just used a `<button>` element and been done with it.
 
@@ -113,7 +165,6 @@ const MyComponent = () => {
 Then we set a `role="button"` attribute. based on [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role):
 
 > The button role is for clickable elements that trigger a response when activated by the user. Adding role="button" tells the screen reader the element is a button, but provides no button functionality.
-
 
 ```tsx
 const MyComponent = () => {
@@ -201,7 +252,7 @@ That’s it. No explicit button `role`, no `tabIndex`, no key handler (because b
 
 :::
 
-## Use `prefer-reduce-motion` for your animations!
+## Use `prefer-reduce-motion` for your animations
 
 ::: danger Warning
 
@@ -219,6 +270,29 @@ Such animations can trigger discomfort for those with vestibular motion disorder
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
+## Straw Testing
+
+Proximity issues can arise when interface elements are designed far apart from one another. This mostly affects people with **low-vision** who rely on zoom software.
+
+What happens when someone uses zoom software is that they only see a small fraction of the screen at once. Usually, the zoomed portion of the screen follows the current position of the mouse pointer or keyboard cursor.
+
+As a result of someone only being able to see a small section at a time, oftentimes when attempting to complete a task, content is difficult to find or may be missed entirely.
+
+How do we test to ensure there are minimal to no proximity issues with our design? One relatively simple and effective method is to perform what's called, "the straw test."
+
+<iframe height="500" style="width: 100%;" scrolling="no" title="Poor Proximity" src="//codepen.io/svinkle/embed/wXNMZr/?height=265&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/svinkle/pen/wXNMZr/">Poor Proximity</a> by Scott Vinkle
+  (<a href="https://codepen.io/svinkle">@svinkle</a>) on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+<iframe height="500" style="width: 100%;" scrolling="no" title="Better Proximity" src="//codepen.io/svinkle/embed/LrqNPV/?height=265&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/svinkle/pen/LrqNPV/">Better Proximity</a> by Scott Vinkle
+  (<a href="https://codepen.io/svinkle">@svinkle</a>) on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+## Increase text size to 200%
+
+Is the content still readable? Does increasing the text size cause content to overlap?
 
 ## Accessible Media
 

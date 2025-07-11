@@ -13,8 +13,8 @@ Ensure that your web application can be fully operated with the keyboard only:
 
 - [WebAIM talks about keyboard accessibility](https://webaim.org/techniques/keyboard/)
 
-## Keyboard focus and focus outline (focus ring)
-
+<!-- ## Keyboard focus and focus outline (focus ring) -->
+<!-- 
 Keyboard focus refers to the current element in the DOM that is selected to accept input from the keyboard. We see it everywhere as a focus outline similar to that shown in the following image:
 
 [![Blue keyboard focus outline around a selected link.](https://legacy.reactjs.org/static/dec0e6bcc1f882baf76ebc860d4f04e5/4fcfe/keyboard-focus.png)](https://legacy.reactjs.org/static/dec0e6bcc1f882baf76ebc860d4f04e5/4fcfe/keyboard-focus.png)
@@ -31,13 +31,9 @@ Here are some examples of custom focus rings in [Tapsi design system](https://gi
 <tapsi-switch label="switch"></tapsi-switch>
 <tapsi-checkbox label="checkbox"></tapsi-checkbox>
 
-</section>
+</section> -->
 
-## Mechanisms to skip to desired content
-
-Provide a mechanism to allow users to skip past navigation sections in your application as this assists and speeds up keyboard navigation.
-
-### Skip Links
+## Skip Links
 
 On most pages, keyboard and screen reader users must navigate a long list of navigation links and other elements before ever arriving at the main content. This can be particularly difficult for users with some forms of motor disabilities. Consider users with no or limited arm movement who navigate a web page by tapping their heads on a switch or that use a stick in their mouth to press keyboard keys. Requiring users to perform any action numerous times before reaching the main content poses an accessibility barrier.
 
@@ -61,9 +57,6 @@ The idea is simple enough: provide a link at the top of the page that, when acti
 </body>
 ```
 
-### Landmark Elements
-
-Check [Semantic HTML: Landmark Elements](/semantic-html#landmark-elements)
 <!-- 
 ## Programmatically managing focus
 
@@ -132,3 +125,42 @@ A great focus management example is the [react-aria-modal](https://github.com/d
 ::: warning
 While this is a very important accessibility feature, it is also a technique that should be used judiciously. Use it to repair the keyboard focus flow when it is disturbed, not to try and anticipate how users want to use applications.
 ::: -->
+<!-- 
+## Be aware of nested focuses
+
+Imagine we want to create a linked button:
+
+```html
+<a href="#">
+  <tapsi-button variant="brand">nevigate somewhere</tapsi-button>
+</a>
+```
+
+<a href="#">
+  <tapsi-button variant="brand">nevigate somewhere</tapsi-button>
+</a>
+
+As you see both link and button are focusable, but we want the whole thing be focusable once.
+
+We have 2 options:
+
+1. make the button unfocusable.
+
+```html
+<a href="#">
+  <tapsi-button tabindex="-1" variant="brand">nevigate somewhere</tapsi-button>
+</a>
+```
+
+<a href="#">
+<tapsi-button tabindex="-1" variant="brand">nevigate somewhere</tapsi-button>
+</a>
+
+1. Use only the link and style it like a button
+
+```html
+<a href="#" class="button-like-link">nevigate somewhere</a>
+<!-- If you are using `@tapsioss/web-components` or `@tapsioss/react-components` package, you can easily pass href to the button componets and use them as links. -->
+```
+
+<tapsi-button href="#" variant="brand">nevigate somewhere</tapsi-button> -->

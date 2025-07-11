@@ -2,9 +2,8 @@
 if (typeof window !== 'undefined') {
     import('./components/visibility-widget.ts')
 }
- 
-</script>
 
+</script>
 
 # Visibility Methods
 
@@ -34,7 +33,7 @@ Here is the `.sr-only` utility from [Tailwind](https://tailwindcss.com/docs/scre
 
 ## `display: none` in CSS
 
-CSS `display: none` will hide content from everyone: keyboard users, screen reader users, sighted mouse users, and all. The space normally taken up by `display: none` elements will collapse. 
+CSS `display: none` will hide content from everyone: keyboard users, screen reader users, sighted mouse users, and all. The space normally taken up by `display: none` elements will collapse.
 
 ```css
 .custom-dropdown-panel {
@@ -44,18 +43,17 @@ CSS `display: none` will hide content from everyone: keyboard users, screen read
     display: flex;
 }
 ```
-`Display: none` is a critical UI tool to understand and use. It will cancel out any `flex`, `grid`, or `block` display properties, though, which is a thing to consider. Display is not animatable without keyframe animations.
+
+The `display: none` is a critical UI tool to understand and use. It will cancel out any `flex`, `grid`, or `block` display properties, though, which is a thing to consider. Display is not animatable without keyframe animations.
 
 <visibility-widget option-name="display: none" classes-to-toggle="hidden"></visibility-widget>
 
-##  `visibility: hidden` in CSS
+## `visibility: hidden` in CSS
 
 Like `display: none`, CSS `visibility: hidden` will render something invisible. It will also hide it from keyboards and screen readers. But it will also reserve the visual space. Visibility is not animatable without keyframe animations.
 
 ```html
-<div style="visibility: hidden;">
-    
-</div>
+<div style="visibility: hidden;">test</div>
 ```
 
 <visibility-widget option-name="visibility: hidden" classes-to-toggle="invisible"></visibility-widget>
@@ -69,6 +67,7 @@ Like `display: none`, CSS `visibility: hidden` will render something invisible. 
 
 </div>
 ```
+
 <visibility-widget option-name="opacity: 0" classes-to-toggle="opacity-0"></visibility-widget>
 
 ## `aria-hidden`
@@ -81,6 +80,7 @@ No ARIA attributes will affect the display or keyboard accessibility of an eleme
     <button>This button will still be focusable without `tabIndex="-1"`</button>
 </div>
 ```
+
 <visibility-widget option-name='aria-hidden="true"' attribute-to-toggle="aria-hidden"></visibility-widget>
 
 ## `hidden` attribute in HTML
@@ -92,4 +92,5 @@ Built-in to HTML is the `hidden` attribute. It will effectively render an elemen
     <button>This button is hidden also</button>
 </div>
 ```
+
 <visibility-widget option-name='hidden' attribute-to-toggle="hidden"></visibility-widget>

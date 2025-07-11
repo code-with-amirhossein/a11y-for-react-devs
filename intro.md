@@ -7,7 +7,7 @@ outline: 'deep'
 
 <svg style="width: 10rem; margin:  2rem auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>human</title><path d="M21,9H15V22H13V16H11V22H9V9H3V7H21M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6C10.89,6 10,5.1 10,4C10,2.89 10.89,2 12,2Z" fill="var(--vp-c-brand-1)" /></svg>
 
-Accessibility is the practice of making your websites usable by as many people as possible. We traditionally think of this as being about people with disabilities, but the practice of making sites accessible also benefits other groups such as those using mobile devices, or those with slow network connections.
+<b>Accessibility is the practice of making your websites usable by as many people as possible</b>. We traditionally think of this as being about people with disabilities, but the practice of making sites accessible also benefits other groups such as those using mobile devices, or those with slow network connections.
 
 You might also think of accessibility as treating everyone the same, and giving them equal opportunities, no matter what their ability or circumstances. Just as it is wrong to exclude someone from a physical building because they are in a wheelchair (modern public buildings generally have wheelchair ramps or elevators), it is also not right to exclude someone from a website because they have a visual impairment. We are all different, but we are all human, and therefore have the same human rights.
 
@@ -15,7 +15,7 @@ Accessibility is the right thing to do. Providing accessible sites is part of th
 
 ## What kinds of disability are we looking at?
 
-People with disabilities are just as diverse as people without disabilities, and so are their disabilities. The key lesson here is to think beyond your own computer and how you use the web, and start learning about how others use it — you are not your users. The main types of disability to consider are explained below, along with any special tools they use to access web content (known as assistive technologies, or ATs).
+People with disabilities are just as diverse as people without disabilities, and so are their disabilities. <b>The key lesson here is to think beyond your own computer and how you use the web, and start learning about how others use it — you are not your users</b>. The main types of disability to consider are explained below, along with any special tools they use to access web content (known as assistive technologies, or ATs).
 
 ::: info Note
 
@@ -25,7 +25,6 @@ The World Health Organization's [Disability and health](https://www.who.int/en/n
 ### People with visual impairments
 
 People with visual impairments include people with blindness, low-level vision, and color blindness. Many people with visual impairments use screen magnifiers that are either physical magnifiers or software zoom capabilities. Most browsers and operating systems these days have zoom capabilities. Some users will rely on screen readers, which is software that reads digital text aloud.
-
 
 ### People with hearing impairments
 
@@ -60,4 +59,3 @@ A good foundation of accessibility for people with cognitive impairments include
 - Dividing processes into logical, essential steps with progress indicators.
 - Website authentication as easy as possible without compromising security.
 - Making forms easy to complete, such as with clear error messages and simple error recovery.
-
